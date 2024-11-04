@@ -17,31 +17,6 @@
 // Return a pointer to the array of strings.
 // Sets the value of size to be the number of valid
 // entries in the array (not the total array length).
-char ** loadFileAA(char *filename, int *size)
-{
-	FILE *in = fopen(filename, "r");
-	if (!in)
-	{
-	    perror("Can't open file");
-	    exit(1);
-	}
-	
-	// TODO
-	// Allocate memory for an array of strings (arr).
-	// Read the file line by line.
-    //   Trim newline.
-	//   Expand array if necessary (realloc).
-	//   Allocate memory for the string (str).
-	//   Copy each line into the string (use strcpy).
-	//   Attach the string to the large array (assignment =).
-    // Close the file.
-	
-	// The size should be the number of entries in the array.
-	*size = 0;
-	
-	// Return pointer to the array of strings.
-	return NULL;
-}
 
 char (*loadFile2D(char *filename, int *size))[COLS]
 {
@@ -49,12 +24,22 @@ char (*loadFile2D(char *filename, int *size))[COLS]
 	if (!in)
 	{
 	    perror("Can't open file");
-	    exit(1);
+	    exit(0);
 	}
 	
 	// TODO
 	// Allocate memory for an 2D array, using COLS as the width.
-	// Read the file line by line into a buffer.
+	char (*strs)[COLS] = malloc(10 * sizeof(char[COLS]));
+	// Read the file line by line into a buffer.	
+	char buffer[COLS];
+	while (fgets(buffer, sizeof(buffer), in)){
+		for (int i = 0; i < COLS; i++){
+			if (buffer[i] == '\n'){
+				buffer[i] = '\0';
+			}
+		
+		}
+	}
     //   Trim newline.
 	//   Expand array if necessary (realloc).
 	//   Copy each line from the buffer into the array (use strcpy).
@@ -69,11 +54,7 @@ char (*loadFile2D(char *filename, int *size))[COLS]
 
 // Search the array for the target string.
 // Return the found string or NULL if not found.
-char * substringSearchAA(char *target, char **lines, int size)
-{
 
-	return NULL;
-}
 
 char * substringSearch2D(char *target, char (*lines)[COLS], int size)
 {
@@ -82,10 +63,7 @@ char * substringSearch2D(char *target, char (*lines)[COLS], int size)
 }
 
 // Free the memory used by the array
-void freeAA(char ** arr, int size)
-{
 
-}
 
 void free2D(char (*arr)[COLS])
 {
